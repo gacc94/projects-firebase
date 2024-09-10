@@ -5,7 +5,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -20,6 +20,29 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@features/*": [
+        "src/app/features/*"
+      ],
+      "@auth/*": [
+        "src/app/features/auth/*"
+      ],
+      "@dashboard/*": [
+        "src/app/features/dashboard/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@environments/*": [
+        "src/app/environments/*"
+      ]
+    },
     "lib": [
       "ES2022",
       "dom"

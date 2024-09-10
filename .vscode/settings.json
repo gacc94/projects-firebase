@@ -6,5 +6,6 @@
     "tab.activeBackground": "#2F313C",
     "tab.hoverBackground": "#404859",
     "tab.border": "#2F313C"
-  }
+  },
+  "a-file-icon-vscode.folderColor": "#607d8b"
 }
