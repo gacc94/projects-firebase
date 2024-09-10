@@ -8,15 +8,17 @@ const AUTH_ROUTES: Routes = [
     children: [
       {
         path: 'sign-in',
-        loadComponent: () => import('./presentation/views/sign-in/sign-in.component').then(m => m.SignInComponent)
+        loadComponent: () => import('./presentation/views/sign-in/sign-in.component')
+      },
+      {
+        path: 'sign-up',
+        loadComponent: () => import('./presentation/views/sign-up/sign-up.component')
       },
       {
         path: '**',
         redirectTo: 'sign-in',
         pathMatch: 'full'
       }
-      // { path: 'about', loadChildren: () => import('./presentation/views/about/about.module').then(m => m.AboutModule) },
-      // { path: 'contact', loadChildren: () => import('./presentation/views/contact/contact.module').then(m => m
     ]
   },
   {
