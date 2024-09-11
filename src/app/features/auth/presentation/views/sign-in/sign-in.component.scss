@@ -1,7 +1,5 @@
 .form {
-
   &-container {
-    max-width: 90%;
     width: 25rem;
     padding: 1.5rem;
     border-radius: .35rem;
@@ -12,8 +10,12 @@
 
   &-title {
     margin-bottom: 1rem;
+    text-align: center;
   }
 }
+
+
+
 
 button {
   width: 100%;

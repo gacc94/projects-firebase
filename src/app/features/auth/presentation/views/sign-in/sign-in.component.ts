@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, DestroyRef, OnInit, signal } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -9,6 +9,10 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Auth } from '@app/utils/libraries/app-constant';
 
+export interface IForm {
+  email: FormControl,
+  password: FormControl
+}
 @Component({
   selector: 'app-sign-in',
   standalone: true,
@@ -26,23 +30,25 @@ import { Auth } from '@app/utils/libraries/app-constant';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export default class SignInComponent {
+export default class SignInComponent implements OnInit {
 
-  authForm!: FormGroup;
+  authForm !: FormGroup;
 
   constructor(
-    private readonly activateRoute: ActivatedRoute,
-    private readonly router: Router,
-    private readonly fb: FormBuilder,
-    private readonly destroyRef: DestroyRef,
+    private readonly _activateRoute: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _fb: FormBuilder,
+    private readonly _destroyRef: DestroyRef,
   ) {
+  }
+  ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
-    this.authForm = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+    this.authForm = this._fb.group<IForm>({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     })
   }
 
