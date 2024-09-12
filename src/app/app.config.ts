@@ -8,6 +8,9 @@ import { Auth, getAuth, provideAuth } from '@angular/fire/auth';
 import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment.dev';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { STORAGE_PROVIDERS } from '@shared/storage/providers/storage.provider';
+
+export const APP_PROVIDERS = [...STORAGE_PROVIDERS]
 
 if (environment.production) {
   enableProdMode();
@@ -15,6 +18,7 @@ if (environment.production) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    ...APP_PROVIDERS,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),

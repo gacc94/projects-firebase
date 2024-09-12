@@ -8,7 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Auth } from '@app/utils/libraries/app-constant';
-import { AuthService, IUserDTO } from '@app/features/auth/services/auth.service';
+import { AuthService } from '@app/features/auth/services/auth.service';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
 
 export interface IForm {
@@ -67,9 +67,7 @@ export default class SignInComponent implements OnInit {
     if (!userCredential) {
       return;
     }
-    const user = userCredential?.user as IUserDTO;
-    console.log({ stsToken: user.stsTokenManager });
-
+    this._redirectDashboard();
   }
 
   async signInGoogle() {

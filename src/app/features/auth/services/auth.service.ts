@@ -2,19 +2,6 @@ import { Injectable } from '@angular/core';
 import { Auth, getRedirectResult, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, User, UserCredential } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
-export interface IUserDTO extends User {
-  accessToken: string;
-  stsTokenManager: {
-    accessToken: string;
-    expirationTime: number;
-    refreshToken: string;
-  }
-}
-
-export interface IUserCredential extends UserCredential {
-
-}
-
 @Injectable({
   providedIn: 'root'
 })
