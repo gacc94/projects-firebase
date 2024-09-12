@@ -1,12 +1,13 @@
-export interface IAuth {
-  authenticated: boolean;
-  user: any; // User object
-  token: string; // JWT token
-  refreshToken: string; // JWT refresh token
-}
+export class AuthEntity {
+  email: string;
+  password: string;
 
-export class Auth {
-  constructor() {
-    Object.assign(this, Auth);
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+  }
+
+  properties() {
+    return { email: this.email, password: this.password };
   }
 }

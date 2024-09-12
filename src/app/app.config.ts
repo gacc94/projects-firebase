@@ -9,8 +9,12 @@ import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firesto
 import { environment } from 'src/environments/environment.dev';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { STORAGE_PROVIDERS } from '@shared/storage/providers/storage.provider';
+import { AUT_PROVIDERS } from './features/auth/infrastructure/providers/auth.provider';
 
-export const APP_PROVIDERS = [...STORAGE_PROVIDERS]
+export const APP_CONFIG_PROVIDERS = [
+  ...STORAGE_PROVIDERS,
+  ...AUT_PROVIDERS
+]
 
 if (environment.production) {
   enableProdMode();
@@ -18,7 +22,7 @@ if (environment.production) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    ...APP_PROVIDERS,
+    ...APP_CONFIG_PROVIDERS,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),

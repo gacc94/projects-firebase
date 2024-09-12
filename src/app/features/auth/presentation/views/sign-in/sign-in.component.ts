@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, DestroyRef, Inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { Auth } from '@app/utils/libraries/app-constant';
-import { AuthService } from '@app/features/auth/services/auth.service';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
+import { SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN } from '@app/features/auth/infrastructure/providers/auth.provider';
+import { ISignInGoogleUseCase } from '@app/features/auth/application/interfaces/sign-in-google.interface';
+import { ISignInUseCase } from '@app/features/auth/application/interfaces/sign-in.interface';
 
 export interface IForm {
   email: FormControl,
@@ -43,7 +44,8 @@ export default class SignInComponent implements OnInit {
     private readonly _router: Router,
     private readonly _fb: FormBuilder,
     private readonly _destroyRef: DestroyRef,
-    private readonly _authService: AuthService,
+    @Inject(SIGN_IN_GOOGLE_TOKEN) private readonly _signInGoogleUseCase: ISignInGoogleUseCase,
+    @Inject(SIGN_IN_TOKEN) private readonly _signInUseCase: ISignInUseCase
   ) { }
   ngOnInit(): void {
     this.initForm();
@@ -57,21 +59,18 @@ export default class SignInComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (!this.authForm.valid) {
-      return;
-    }
+    if (!this.authForm.valid) return;
 
     const { email, password } = this.authForm.getRawValue();
-    const userCredential = await this._authService.signIn(email, password);
+    const userCredential = await this._signInUseCase.execute(email, password);
     console.log({ userCredential })
-    if (!userCredential) {
-      return;
-    }
+    if (!userCredential) return;
+
     this._redirectDashboard();
   }
 
   async signInGoogle() {
-    const credential = await this._authService.signInGoogleWithPopUp();
+    const credential = await this._signInGoogleUseCase.execute();
     if (!credential) {
       return;
     }
