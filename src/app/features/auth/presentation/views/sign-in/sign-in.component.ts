@@ -8,6 +8,8 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Auth } from '@app/utils/libraries/app-constant';
+import { AuthService, IUserDTO } from '@app/features/auth/services/auth.service';
+import { AppRoutes } from '@app/utils/libraries/app-routes';
 
 export interface IForm {
   email: FormControl,
@@ -32,15 +34,17 @@ export interface IForm {
 })
 export default class SignInComponent implements OnInit {
 
-  authForm !: FormGroup;
+  authForm !: FormGroup<IForm>;
+  email = 'a94@gmail.com';
+  password = '123456';
 
   constructor(
     private readonly _activateRoute: ActivatedRoute,
     private readonly _router: Router,
     private readonly _fb: FormBuilder,
     private readonly _destroyRef: DestroyRef,
-  ) {
-  }
+    private readonly _authService: AuthService,
+  ) { }
   ngOnInit(): void {
     this.initForm();
   }
@@ -52,7 +56,32 @@ export default class SignInComponent implements OnInit {
     })
   }
 
-  signInGoogle(): void {
+  async onSubmit() {
+    if (!this.authForm.valid) {
+      return;
+    }
 
+    const { email, password } = this.authForm.getRawValue();
+    const userCredential = await this._authService.signIn(email, password);
+    console.log({ userCredential })
+    if (!userCredential) {
+      return;
+    }
+    const user = userCredential?.user as IUserDTO;
+    console.log({ stsToken: user.stsTokenManager });
+
+  }
+
+  async signInGoogle() {
+    const credential = await this._authService.signInGoogleWithPopUp();
+    if (!credential) {
+      return;
+    }
+    console.log({ credential });
+    this._redirectDashboard();
+  }
+
+  private _redirectDashboard(): void {
+    this._router.navigateByUrl(AppRoutes.DASHBOARD_BASE);
   }
 }

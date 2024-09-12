@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ServiceNameService {
-  constructor() { }
+export class AuthInfrastructure {
+  constructor(
+
+  ) { }
 
 }

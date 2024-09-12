@@ -5,8 +5,8 @@ export abstract class AppRoutes {
     * =======================================*/
   static readonly HOME: string = '/home';
 
-  static readonly AUTH_BASE: string = '/auth';
-  static readonly DASHBOARD_BASE: string = '/dashboard';
+  static readonly AUTH_BASE: string = 'auth';
+  static readonly DASHBOARD_BASE: string = 'dashboard';
 
   /*
     * ========================================
@@ -24,4 +24,8 @@ export abstract class AppRoutes {
   static readonly DASH_HOME: string = `${this.DASHBOARD_BASE}/home`;
   static readonly DASH_USERS: string = `${this.DASHBOARD_BASE}/users`;
   static readonly DASH_COUNTRIES: string = `${this.DASHBOARD_BASE}/countries`;
+
+  static removeCaracter(url: string): string | undefined {
+    return url.split('/').at(1);
+  }
 }

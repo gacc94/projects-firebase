@@ -1,10 +1,13 @@
 <div class="form-container">
+  <p>email: {{ email }}</p>
+  <p>password: {{ password }}</p>
+
   <h1 class="form-title">Sign In</h1>
-  <form [formGroup]="authForm">
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Ingrese su email" type="email">
+        <input matInput placeholder="Ingrese su email" type="email" formControlName="email">
         <mat-icon matSuffix fontIcon="person" />
         <!-- <mat-error *ngIf="hasError('email')">{{ errorMessage('email') }}</mat-error> -->
       </mat-form-field>
@@ -12,12 +15,12 @@
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input matInput placeholder="Ingrese su contraseña" type="password">
+        <input matInput placeholder="Ingrese su contraseña" type="password" formControlName="password">
         <mat-icon matSuffix fontIcon="key" />
         <!-- <mat-error *ngIf="hasError('password')">{{ errorMessage('password') }}</mat-error> -->
       </mat-form-field>
     </div>
-    <div>
+    <div class="form-forgot">
       <span><a routerLink="/auth/forgot-password">Forgot password?</a></span>
     </div>
     <div>
