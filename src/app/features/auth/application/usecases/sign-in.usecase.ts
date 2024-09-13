@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { AUTH_TOKEN } from '../../infrastructure/providers/auth.provider';
+import { Inject } from '@angular/core';
 import { IAuthRepository } from '../../domain/repositories/auth.repository';
 import { AuthEntity } from '../../domain/entities/auth.entity';
 import { AuthFactory } from '../../domain/factories/auth.factory';
 import { IAuthFactory } from '../../domain/interfaces/auth.factory.interface';
 import { UserCredential } from '@angular/fire/auth';
 import { ISignInUseCase } from '../interfaces/sign-in.interface';
+import { AUTH_TOKEN } from '@shared/tokens/shared.token';
 export class SignInUseCase implements ISignInUseCase {
 
   constructor(

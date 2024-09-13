@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
-import { AUTH_TOKEN } from '../../infrastructure/providers/auth.provider';
 import { IAuthRepository } from '../../domain/repositories/auth.repository';
 import { UserCredential } from '@angular/fire/auth';
 import { ISignInGoogleUseCase } from '../interfaces/sign-in-google.interface';
+import { AUTH_TOKEN } from '@app/shared/tokens/shared.token';
 
 export class SignInGoogleUseCase implements ISignInGoogleUseCase {
 

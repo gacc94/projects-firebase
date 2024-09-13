@@ -8,11 +8,11 @@ import { Auth, getAuth, provideAuth } from '@angular/fire/auth';
 import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment.dev';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { STORAGE_PROVIDERS } from '@shared/storage/providers/storage.provider';
 import { AUT_PROVIDERS } from './features/auth/infrastructure/providers/auth.provider';
+import { SHARED_PROVIDERS } from './shared/providers/shared.provider';
 
 export const APP_CONFIG_PROVIDERS = [
-  ...STORAGE_PROVIDERS,
+  ...SHARED_PROVIDERS,
   ...AUT_PROVIDERS
 ]
 

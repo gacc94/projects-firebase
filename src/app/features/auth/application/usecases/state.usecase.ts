@@ -1,7 +1,7 @@
 import { Inject } from "@angular/core";
-import { AUTH_TOKEN } from "../../infrastructure/providers/auth.provider";
 import { IAuthRepository } from "../../domain/repositories/auth.repository";
 import { IStateUseCase } from "../interfaces/state.interface";
+import { AUTH_TOKEN } from "@app/shared/tokens/shared.token";
 
 export class StateUseCase implements IStateUseCase {
 

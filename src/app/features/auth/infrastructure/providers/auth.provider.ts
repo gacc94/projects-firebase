@@ -1,20 +1,12 @@
-import { inject, InjectionToken, Provider } from "@angular/core";
+import { Provider } from "@angular/core";
 import { SignInUseCase } from "../../application/usecases/sign-in.usecase";
 import { SignInGoogleUseCase } from "../../application/usecases/sign-in-google.usecase";
-import { ISignInGoogleUseCase } from "../../application/interfaces/sign-in-google.interface";
 import { IAuthRepository } from "../../domain/repositories/auth.repository";
 import { AuthInfrastructure } from "../auth.infrastructure";
 import { Auth } from "@angular/fire/auth";
-import { ISignInUseCase } from "../../application/interfaces/sign-in.interface";
 import { AuthFactory } from "../../domain/factories/auth.factory";
-import { IAuthFactory } from "../../domain/interfaces/auth.factory.interface";
-import { IStateUseCase } from "../../application/interfaces/state.interface";
 import { StateUseCase } from "../../application/usecases/state.usecase";
-
-export const AUTH_TOKEN = new InjectionToken<IAuthRepository>('AuthService');
-export const SIGN_IN_TOKEN = new InjectionToken<ISignInUseCase>('SignInUseCase');
-export const SIGN_IN_GOOGLE_TOKEN = new InjectionToken<ISignInGoogleUseCase>('SignInGoogleUseCase');
-export const STATE_AUTH_TOKEN = new InjectionToken<IStateUseCase>('StateUseCase');
+import { AUTH_TOKEN, SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from "@app/shared/tokens/shared.token";
 
 export const AUT_PROVIDERS: Array<Provider> = [
   {

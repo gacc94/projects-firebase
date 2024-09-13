@@ -8,10 +8,10 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AppRoutes } from '@app/utils/libraries/app-routes';
-import { SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from '@app/features/auth/infrastructure/providers/auth.provider';
 import { ISignInGoogleUseCase } from '@app/features/auth/application/interfaces/sign-in-google.interface';
 import { ISignInUseCase } from '@app/features/auth/application/interfaces/sign-in.interface';
 import { IStateUseCase } from '@app/features/auth/application/interfaces/state.interface';
+import { SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from '@app/shared/tokens/shared.token';
 
 export interface IForm {
   email: FormControl,

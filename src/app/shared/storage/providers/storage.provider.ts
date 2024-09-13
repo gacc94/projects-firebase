@@ -1,12 +1,10 @@
-import { InjectionToken, Provider } from "@angular/core";
-import { StorageAdapter } from "../interfaces/storage.interface";
+import { Provider } from "@angular/core";
 import { SessionStorageService } from "../services/session-storage.service";
-
-export const STORAGE_SERVICE_TOKEN = new InjectionToken<StorageAdapter>('StorageServiceToken');
+import { STORAGE_TOKEN } from "@app/shared/tokens/shared.token";
 
 export const STORAGE_PROVIDERS: Array<Provider> = [
   {
-    provide: STORAGE_SERVICE_TOKEN,
+    provide: STORAGE_TOKEN,
     useClass: SessionStorageService,
     // useClass: LocalStorageService,
   },
