@@ -1,9 +1,9 @@
 import { InjectionToken } from "@angular/core";
 import { StorageAdapter } from "../storage/interfaces/storage.interface";
 import { IAuthRepository } from "@features/auth/domain/repositories/auth.repository";
-import { ISignInUseCase } from "@app/features/auth/application/interfaces/sign-in.interface";
-import { ISignInGoogleUseCase } from "@app/features/auth/application/interfaces/sign-in-google.interface";
-import { IStateUseCase } from "@app/features/auth/application/interfaces/state.interface";
+import { ISignInUseCase } from "@features/auth/application/interfaces/sign-in.interface";
+import { ISignInGoogleUseCase } from "@features/auth/application/interfaces/sign-in-google.interface";
+import { IStateUseCase } from "@features/auth/application/interfaces/state.interface";
 import { ISignOutUseCase } from "../application/interfaces/sign-out.interface";
 
 export const STORAGE_TOKEN = new InjectionToken<StorageAdapter>('StorageServiceToken');

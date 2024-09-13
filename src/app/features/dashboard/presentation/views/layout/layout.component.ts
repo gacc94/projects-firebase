@@ -43,7 +43,9 @@ export default class LayoutComponent {
     );
 
   async signOut() {
-    await this._signOutUseCase.execute();
+    const result = await this._signOutUseCase.execute();
+    if (!result) return;
+    console.log(result.message);
     this._redirectAuth();
   }
 
