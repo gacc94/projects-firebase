@@ -8,10 +8,13 @@ import { Auth } from "@angular/fire/auth";
 import { ISignInUseCase } from "../../application/interfaces/sign-in.interface";
 import { AuthFactory } from "../../domain/factories/auth.factory";
 import { IAuthFactory } from "../../domain/interfaces/auth.factory.interface";
+import { IStateUseCase } from "../../application/interfaces/state.interface";
+import { StateUseCase } from "../../application/usecases/state.usecase";
 
 export const AUTH_TOKEN = new InjectionToken<IAuthRepository>('AuthService');
 export const SIGN_IN_TOKEN = new InjectionToken<ISignInUseCase>('SignInUseCase');
 export const SIGN_IN_GOOGLE_TOKEN = new InjectionToken<ISignInGoogleUseCase>('SignInGoogleUseCase');
+export const STATE_AUTH_TOKEN = new InjectionToken<IStateUseCase>('StateUseCase');
 
 export const AUT_PROVIDERS: Array<Provider> = [
   {
@@ -28,5 +31,10 @@ export const AUT_PROVIDERS: Array<Provider> = [
     provide: SIGN_IN_GOOGLE_TOKEN,
     useFactory: (repository: IAuthRepository) => new SignInGoogleUseCase(repository),
     deps: [AUTH_TOKEN]
-  }
+  },
+  {
+    provide: STATE_AUTH_TOKEN,
+    useFactory: (repository: IAuthRepository) => new StateUseCase(repository),
+    deps: [AUTH_TOKEN]
+  },
 ]

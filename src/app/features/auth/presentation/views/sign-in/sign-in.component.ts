@@ -8,9 +8,10 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AppRoutes } from '@app/utils/libraries/app-routes';
-import { SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN } from '@app/features/auth/infrastructure/providers/auth.provider';
+import { SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from '@app/features/auth/infrastructure/providers/auth.provider';
 import { ISignInGoogleUseCase } from '@app/features/auth/application/interfaces/sign-in-google.interface';
 import { ISignInUseCase } from '@app/features/auth/application/interfaces/sign-in.interface';
+import { IStateUseCase } from '@app/features/auth/application/interfaces/state.interface';
 
 export interface IForm {
   email: FormControl,
@@ -40,15 +41,16 @@ export default class SignInComponent implements OnInit {
   password = '123456';
 
   constructor(
-    private readonly _activateRoute: ActivatedRoute,
     private readonly _router: Router,
     private readonly _fb: FormBuilder,
-    private readonly _destroyRef: DestroyRef,
     @Inject(SIGN_IN_GOOGLE_TOKEN) private readonly _signInGoogleUseCase: ISignInGoogleUseCase,
-    @Inject(SIGN_IN_TOKEN) private readonly _signInUseCase: ISignInUseCase
+    @Inject(SIGN_IN_TOKEN) private readonly _signInUseCase: ISignInUseCase,
+    @Inject(STATE_AUTH_TOKEN) private readonly _stateUseCase: IStateUseCase,
   ) { }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.initForm();
+    const res = await this._stateUseCase.execute();
+    console.log(res);
   }
 
   initForm() {

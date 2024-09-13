@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAuthRepository } from '../domain/repositories/auth.repository';
-import { Auth, getRedirectResult, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from '@angular/fire/auth';
+import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from '@angular/fire/auth';
 
 export class AuthInfrastructure implements IAuthRepository {
 
@@ -44,4 +44,13 @@ export class AuthInfrastructure implements IAuthRepository {
     }
   }
 
+
+  getState() {
+    return new Promise((resolve) => {
+      onAuthStateChanged(this._auth, (user) => {
+        if (!user) resolve(null);
+        resolve(user);
+      });
+    })
+  }
 }
