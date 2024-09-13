@@ -6,13 +6,14 @@ import { AuthInfrastructure } from "../auth.infrastructure";
 import { Auth } from "@angular/fire/auth";
 import { AuthFactory } from "../../domain/factories/auth.factory";
 import { StateUseCase } from "../../application/usecases/state.usecase";
-import { AUTH_TOKEN, SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from "@app/shared/tokens/shared.token";
+import { AUTH_STATE, AUTH_TOKEN, SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN } from "@app/shared/tokens/shared.token";
+import { IStateStorage } from "@app/shared/states/interfaces/auth.interface";
 
 export const AUT_PROVIDERS: Array<Provider> = [
   {
     provide: AUTH_TOKEN,
-    useFactory: (auth: Auth) => new AuthInfrastructure(auth),
-    deps: [Auth]
+    useFactory: (auth: Auth, authState: IStateStorage<any>) => new AuthInfrastructure(auth, authState),
+    deps: [Auth, AUTH_STATE]
   },
   {
     provide: SIGN_IN_TOKEN,

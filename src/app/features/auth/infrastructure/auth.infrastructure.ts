@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { IAuthRepository } from '../domain/repositories/auth.repository';
 import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from '@angular/fire/auth';
+import { AUTH_STATE } from '@app/shared/tokens/shared.token';
+import { IStateStorage } from '@app/shared/states/interfaces/auth.interface';
 
 export class AuthInfrastructure implements IAuthRepository {
 
@@ -8,6 +10,7 @@ export class AuthInfrastructure implements IAuthRepository {
 
   constructor(
     private readonly _auth: Auth,
+    @Inject(AUTH_STATE) private readonly _authState: IStateStorage<any>
   ) { }
 
   async signIn(email: string, password: string): Promise<UserCredential> {
@@ -26,7 +29,9 @@ export class AuthInfrastructure implements IAuthRepository {
 
   async signInGoogleWithPopUp(): Promise<UserCredential | null> {
     try {
-      return await signInWithPopup(this._auth, this._provider);
+      const credential = await signInWithPopup(this._auth, this._provider);
+      this._authState.save(credential);
+      return credential
     } catch (error) {
       console.log({ error });
       return null

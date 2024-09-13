@@ -8,7 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { ISignOutUseCase } from '@app/shared/application/interfaces/sign-out.interface';
-import { SIGN_OUT_TOKEN } from '@app/shared/tokens/shared.token';
+import { IStateStorage } from '@app/shared/states/interfaces/auth.interface';
+import { AUTH_STATE, SIGN_OUT_TOKEN } from '@app/shared/tokens/shared.token';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
 import { map, Observable, shareReplay } from 'rxjs';
 
@@ -29,11 +30,17 @@ import { map, Observable, shareReplay } from 'rxjs';
 })
 export default class LayoutComponent {
   private _breakpointObserver = inject(BreakpointObserver);
+  
+  user: any;
 
   constructor(
     private readonly _router: Router,
     @Inject(SIGN_OUT_TOKEN) private readonly _signOutUseCase: ISignOutUseCase,
-  ) { }
+    @Inject(AUTH_STATE) private readonly _authState: IStateStorage<any>
+  ) { 
+    this._getState();
+    console.log({user: this.user});
+  }
 
 
   isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset)
@@ -47,6 +54,10 @@ export default class LayoutComponent {
     if (!result) return;
     console.log(result.message);
     this._redirectAuth();
+  }
+
+  private _getState() {
+    this.user = this._authState.state$.value;
   }
 
   private _redirectAuth() {
