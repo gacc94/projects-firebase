@@ -1,15 +1,13 @@
-import { Inject, inject, Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { IStateStorage, ITokenState } from '@app/shared/states/interfaces';
-import { StateStorageService } from '@app/shared/states/services/state-storage.service';
-import { STORAGE_TOKEN, TOKEN_STATE } from '@app/shared/tokens/shared.token';
+import { TOKEN_STATE } from '@app/shared/tokens/shared.token';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
-import { environment } from 'src/environments/environment';
-import { } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({ providedIn: 'root' })
-export class AuthGuard {
+export class DashboardGuard {
 
   constructor(
     @Inject(TOKEN_STATE) private readonly _tokenState: IStateStorage<ITokenState>,
@@ -18,15 +16,17 @@ export class AuthGuard {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const hasToken = this._tokenState.state$.value;
-    console.log({ hasToken });
-    if (!hasToken) {
-      return true;
-    }
-    this._navigatesToDashboard();
+    if (hasToken) return true;
+
+    // if (typeof hasToken !== 'object' || typeof hasToken.accessToken !== 'string') {
+    //   return true;
+    // }
+
+    this._navigatesToAuth();
     return false;
   }
 
-  private _navigatesToDashboard(): void {
-    this._router.navigateByUrl(AppRoutes.DASHBOARD_BASE);
+  private _navigatesToAuth(): void {
+    this._router.navigateByUrl(AppRoutes.AUTH_BASE);
   }
 }

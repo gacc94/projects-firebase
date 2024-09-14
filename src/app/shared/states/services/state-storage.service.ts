@@ -12,7 +12,9 @@ export class StateStorageService<T> implements IStateStorage<any> {
   constructor(
     @Inject(STORAGE_TOKEN) private readonly _storage: StorageAdapter,
     @Inject('STORAGE_ID') private readonly _storageId?: string,
-  ) { }
+  ) {
+    this.getStorage();
+  }
 
   get state$(): BehaviorSubject<T | undefined> {
     return this._state$;
@@ -32,6 +34,20 @@ export class StateStorageService<T> implements IStateStorage<any> {
     if (!this._storageId) return;
 
     this._storage.removeItem(this._storageId);
+  }
+
+  protected getStorage(): void {
+    if (!this._storageId) return;
+
+    const storedState = this._storage.getItem(this._storageId);
+    if (!storedState) {
+      this.clear();
+      return;
+    }
+
+    const obj: T = JSON.parse(storedState);
+    this.save(obj);
+
   }
 
 }

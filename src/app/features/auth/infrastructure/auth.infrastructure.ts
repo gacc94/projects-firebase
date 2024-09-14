@@ -46,9 +46,9 @@ export class AuthInfrastructure implements IAuthRepository {
   async signOut(): Promise<{ message: string } | null> {
     try {
       await signOut(this._auth);
-      return {
-        message: 'Sign out successfully',
-      }
+      this._tokenState.clear();
+      this._userState.clear();
+      return { message: 'Sign out successfully' }
     } catch (error) {
       return null;
     }
