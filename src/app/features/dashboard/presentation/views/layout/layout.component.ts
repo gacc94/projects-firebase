@@ -8,8 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { ISignOutUseCase } from '@app/shared/application/interfaces/sign-out.interface';
-import { IStateStorage } from '@app/shared/states/interfaces/auth.interface';
-import { AUTH_STATE, SIGN_OUT_TOKEN } from '@app/shared/tokens/shared.token';
+import { IStateStorage } from '@app/shared/states/interfaces/state-storage.interface';
+import { SIGN_OUT_TOKEN, USER_STATE } from '@app/shared/tokens/shared.token';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
 import { map, Observable, shareReplay } from 'rxjs';
 
@@ -30,16 +30,16 @@ import { map, Observable, shareReplay } from 'rxjs';
 })
 export default class LayoutComponent {
   private _breakpointObserver = inject(BreakpointObserver);
-  
+
   user: any;
 
   constructor(
     private readonly _router: Router,
     @Inject(SIGN_OUT_TOKEN) private readonly _signOutUseCase: ISignOutUseCase,
-    @Inject(AUTH_STATE) private readonly _authState: IStateStorage<any>
-  ) { 
+    @Inject(USER_STATE) private readonly _authState: IStateStorage<any>
+  ) {
     this._getState();
-    console.log({user: this.user});
+    console.log({ user: this.user });
   }
 
 

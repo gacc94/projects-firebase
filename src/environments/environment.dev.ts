@@ -8,5 +8,9 @@ export const environment = {
     apiKey: "AIzaSyCbtUwncpuDYiKKkD5LRi5eyvyKX0AnLss",
     authDomain: "crud-auth-ang18.firebaseapp.com",
     messagingSenderId: "683541430785"
+  },
+  storageKeys: {
+    user: 'user',
+    token: 'jwt',
   }
 }

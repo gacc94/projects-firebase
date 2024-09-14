@@ -29,12 +29,13 @@
       </button> -->
       <button mat-flat-button color="primary">
         Sign In
-        <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        <mat-icon [fontIcon]="'arrow_forward_ios'"></mat-icon>
       </button>
     </div>
     <div>
-      <button mat-raised-button type="button" (click)="signInGoogle()">
-        Google login
+      <button mat-raised-button type="button" (click)="signInGoogle()" color="accent">
+        Sign In with Google
+        <!-- <mat-icon fontIcon="g"></mat-icon> -->
       </button>
     </div>
     <!-- <ng-container *ngIf="action === 'sign-in'"> -->

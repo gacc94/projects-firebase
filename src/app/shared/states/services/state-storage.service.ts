@@ -2,19 +2,19 @@ import { Inject, Injectable } from '@angular/core';
 import { StorageAdapter } from '@app/shared/storage/interfaces/storage.interface';
 import { STORAGE_TOKEN } from '@app/shared/tokens/shared.token';
 import { BehaviorSubject } from 'rxjs';
-import { IStateStorage } from '../interfaces/auth.interface';
+import { IStateStorage } from '../interfaces/state-storage.interface';
 
 @Injectable()
 export class StateStorageService<T> implements IStateStorage<any> {
 
-  private _state$: BehaviorSubject< T| undefined > = new BehaviorSubject< T| undefined >(undefined);
+  private _state$: BehaviorSubject<T | undefined> = new BehaviorSubject<T | undefined>(undefined);
 
   constructor(
     @Inject(STORAGE_TOKEN) private readonly _storage: StorageAdapter,
     @Inject('STORAGE_ID') private readonly _storageId?: string,
-  ){}
+  ) { }
 
-  get state$(): BehaviorSubject< T| undefined> {
+  get state$(): BehaviorSubject<T | undefined> {
     return this._state$;
   }
 

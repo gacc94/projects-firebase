@@ -1,8 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject } from '@angular/core';
 import { IAuthRepository } from '../domain/repositories/auth.repository';
-import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from '@angular/fire/auth';
-import { AUTH_STATE } from '@app/shared/tokens/shared.token';
-import { IStateStorage } from '@app/shared/states/interfaces/auth.interface';
+import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, User, UserCredential } from '@angular/fire/auth';
+import { TOKEN_STATE, USER_STATE } from '@app/shared/tokens/shared.token';
+import { IStateStorage } from '@app/shared/states/interfaces/state-storage.interface';
+import { UserCredentialMapper } from './mappers/user.mapper';
+import { ITokenState, IUserState } from '@shared/states/interfaces';
 
 export class AuthInfrastructure implements IAuthRepository {
 
@@ -10,7 +12,8 @@ export class AuthInfrastructure implements IAuthRepository {
 
   constructor(
     private readonly _auth: Auth,
-    @Inject(AUTH_STATE) private readonly _authState: IStateStorage<any>
+    @Inject(USER_STATE) private readonly _userState: IStateStorage<IUserState>,
+    @Inject(TOKEN_STATE) private readonly _tokenState: IStateStorage<ITokenState>,
   ) { }
 
   async signIn(email: string, password: string): Promise<UserCredential> {
@@ -30,8 +33,10 @@ export class AuthInfrastructure implements IAuthRepository {
   async signInGoogleWithPopUp(): Promise<UserCredential | null> {
     try {
       const credential = await signInWithPopup(this._auth, this._provider);
-      this._authState.save(credential);
-      return credential
+      const user = new UserCredentialMapper().to(credential);
+      this._userState.save(user);
+      this._tokenState.save(user.stsTokenManager);
+      return credential;
     } catch (error) {
       console.log({ error });
       return null
@@ -48,7 +53,6 @@ export class AuthInfrastructure implements IAuthRepository {
       return null;
     }
   }
-
 
   getState() {
     return new Promise((resolve) => {

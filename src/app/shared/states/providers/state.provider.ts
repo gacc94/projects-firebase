@@ -1,13 +1,19 @@
-import { inject, Provider } from "@angular/core";
-import { AUTH_STATE, STORAGE_TOKEN } from "@app/shared/tokens/shared.token";
+import { Provider } from "@angular/core";
+import { USER_STATE, STORAGE_TOKEN, TOKEN_STATE } from "@app/shared/tokens/shared.token";
 import { StateStorageService } from "../services/state-storage.service";
-import { SessionStorageService } from "@app/shared/storage/services/session-storage.service";
 import { StorageAdapter } from "@app/shared/storage/interfaces/storage.interface";
+import { environment } from "src/environments/environment";
+import { ITokenState, IUserState } from "../interfaces";
 
 export const STATE_PROVIDERS: Array<Provider> = [
-    {
-        provide: AUTH_STATE,
-        useFactory: (storage: StorageAdapter) => new StateStorageService(storage, 'auth'),
-        deps: [STORAGE_TOKEN]
-    }
+  {
+    provide: USER_STATE,
+    useFactory: (storage: StorageAdapter) => new StateStorageService<IUserState>(storage, environment.storageKeys.user),
+    deps: [STORAGE_TOKEN]
+  },
+  {
+    provide: TOKEN_STATE,
+    useFactory: (storage: StorageAdapter) => new StateStorageService<ITokenState>(storage, environment.storageKeys.token),
+    deps: [STORAGE_TOKEN]
+  },
 ]
