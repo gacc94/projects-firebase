@@ -10,6 +10,10 @@ export const DASHBOARD_ROUTES: Routes = [
         loadComponent: () => import('./presentation/views/home/home.component')
       },
       {
+        path: 'saving-record',
+        loadComponent: () => import('./presentation/views/saving-record/saving-record.component')
+      },
+      {
         path: '**',
         redirectTo: 'home',
         pathMatch: 'full'

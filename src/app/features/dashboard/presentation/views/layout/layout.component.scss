@@ -1,5 +1,11 @@
-.sidenav-container {
+.sidenav {
   height: 100%;
+
+  &-main {
+    border: 2px solid orange;
+    padding: 1.25rem;
+    min-height: calc(100vh - 4rem);
+  }
 }
 
 .sidenav {

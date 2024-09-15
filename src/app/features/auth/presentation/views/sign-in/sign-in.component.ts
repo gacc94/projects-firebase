@@ -16,6 +16,7 @@ import { Subscription, timer } from 'rxjs';
 import { UtilService } from '@app/shared/services/util.service';
 import { IErrorFirebaseState } from '@app/shared/states/interfaces/error-custom.interface';
 import { IStateStorage } from '@app/shared/states/interfaces';
+import { AlertService } from '@app/shared/services/alert.service';
 
 export interface IForm {
   email: FormControl,
@@ -45,16 +46,20 @@ export default class SignInComponent implements OnInit {
   authForm !: FormGroup<IForm>;
   email = 'a94@gmail.com';
   password = '123456';
+  errorFirebase: IErrorFirebaseState;
 
   constructor(
     private readonly _router: Router,
     private readonly _fb: FormBuilder,
     private readonly _utilService: UtilService,
+    private readonly _alertService: AlertService,
     @Inject(SIGN_IN_GOOGLE_TOKEN) private readonly _signInGoogleUseCase: ISignInGoogleUseCase,
     @Inject(SIGN_IN_TOKEN) private readonly _signInUseCase: ISignInUseCase,
     @Inject(STATE_AUTH_TOKEN) private readonly _stateUseCase: IStateUseCase,
     @Inject(ERROR_FIREBASE_STATE) private readonly _errorFirebaseState: IStateStorage<IErrorFirebaseState>,
-  ) { }
+  ) {
+    this.errorFirebase = _errorFirebaseState.state$.value!;
+  }
   async ngOnInit() {
     this.initForm();
     const res = await this._stateUseCase.execute();
@@ -79,6 +84,7 @@ export default class SignInComponent implements OnInit {
     console.log({ userCredential })
     if (!userCredential) {
       console.log(this._errorFirebaseState.state$.value);
+      this._alertService.showErrorMessage(this.errorFirebase.customMessage);
       return;
     }
 

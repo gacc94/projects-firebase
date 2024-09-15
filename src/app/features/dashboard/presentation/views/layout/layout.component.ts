@@ -13,6 +13,7 @@ import { SIGN_OUT_TOKEN, USER_STATE } from '@app/shared/tokens/shared.token';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
 import { map, Observable, shareReplay } from 'rxjs';
 import { SidebarComponent } from '../../components';
+import { IUserState } from '@app/shared/states/interfaces';
 
 @Component({
   selector: 'app-layout',
@@ -31,25 +32,18 @@ import { SidebarComponent } from '../../components';
   styleUrl: './layout.component.scss'
 })
 export default class LayoutComponent {
-  private _breakpointObserver = inject(BreakpointObserver);
-
-  user: any;
+  user!: IUserState;
+  isHandset$!: Observable<boolean>;
 
   constructor(
     private readonly _router: Router,
+    private readonly _breakpointObserver: BreakpointObserver,
     @Inject(SIGN_OUT_TOKEN) private readonly _signOutUseCase: ISignOutUseCase,
-    @Inject(USER_STATE) private readonly _authState: IStateStorage<any>
+    @Inject(USER_STATE) private readonly _authState: IStateStorage<IUserState>
   ) {
     this._getState();
     console.log({ user: this.user });
   }
-
-
-  isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
 
   async signOut() {
     const result = await this._signOutUseCase.execute();
@@ -59,7 +53,11 @@ export default class LayoutComponent {
   }
 
   private _getState() {
-    this.user = this._authState.state$.value;
+    this.user = this._authState.state$.value!;
+    this.isHandset$ = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
   }
 
   private _redirectAuth() {
