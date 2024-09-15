@@ -1,7 +1,7 @@
 <div class="sidebar-container">
   <div class="sidebar-header">
     <div class="sidebar-avatar">
-      <img [src]="user()?.photoURL" alt="avatar" class="sidebar-avatar-img">
+      <img [src]="user()?.photoURL | defaultAvatar" alt="avatar" class="sidebar-avatar-img">
     </div>
     <p class="sidebar-p">{{user()?.displayName}}</p>
     <span class="sidebar-span">{{user()?.email}}</span>
@@ -9,9 +9,18 @@
   <mat-divider></mat-divider>
   <div class="sidebar-nav">
     <mat-nav-list>
-      <a mat-list-item [routerLink]="[routeSavingRecord]" routerLinkActive="router-active">Saving Record</a>
-      <a mat-list-item [routerLink]="['/xd']" routerLinkActive="router-active">Countries</a>
-      <a mat-list-item [routerLink]="['/xd2']" routerLinkActive="router-active">Users</a>
+      <a mat-list-item [routerLink]="[routeSavingRecord]" routerLinkActive="router-active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <span>Saving Record</span>
+      </a>
+      <a mat-list-item [routerLink]="['/xd']" routerLinkActive="router-active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <span>Countries</span>
+      </a>
+      <a mat-list-item [routerLink]="['/xd2']" routerLinkActive="router-active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <span>Users</span>
+      </a>
     </mat-nav-list>
   </div>
 </div>

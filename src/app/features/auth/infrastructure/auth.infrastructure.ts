@@ -22,7 +22,11 @@ export class AuthInfrastructure implements IAuthRepository {
 
   async signInWithEmailAndPassword(email: string, password: string) {
     try {
-      return await signInWithEmailAndPassword(this._auth, email, password);
+      const credential = await signInWithEmailAndPassword(this._auth, email, password);
+      const user = new UserCredentialMapper().to(credential);
+      this._userState.save(user);
+      this._tokenState.save(user.stsTokenManager);
+      return credential;
     } catch (error) {
       if (error instanceof FirebaseError) {
         const errorFirebase = new ErrorCustomMapper(error).mapToCustomError();
