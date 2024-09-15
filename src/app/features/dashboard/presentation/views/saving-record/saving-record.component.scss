@@ -14,8 +14,8 @@
   &-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 
     mat-card-content {
       display: flex;
@@ -25,19 +25,34 @@
 
   &-form {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr 1fr auto auto;
     gap: 1.5rem;
 
+    &-content {
+      margin-bottom: 1.5rem;
+    }
+
     &-field {
-      margin-top: 1rem;
+      // margin-top: 1rem;
+      display: flex;
+      align-items: center;
     }
 
     mat-form-field {
       width: 100%;
+    }
+
+    .mat-mdc-form-field-bottom-align {
+      display: none;
     }
   }
 }
 
 mat-card-header {
   justify-content: center;
+}
+
+mat-radio-group {
+  display: flex;
+  gap: 1.5rem;
 }

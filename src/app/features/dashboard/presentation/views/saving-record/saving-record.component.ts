@@ -6,11 +6,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCalendarCellClassFunction, MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { TableComponent } from '../../components';
 
 @Component({
   selector: 'app-saving-record',
   standalone: true,
-  imports: [MatCardModule, MatCardTitle, CurrencyPipe, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatIconModule
+  imports: [
+    MatCardModule,
+    MatCardTitle,
+    CurrencyPipe,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatButtonModule,
+    TableComponent
   ],
   templateUrl: './saving-record.component.html',
   styleUrl: './saving-record.component.scss',

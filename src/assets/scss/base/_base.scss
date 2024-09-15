@@ -14,7 +14,7 @@ input,
 textarea,
 button,
 body {
-  font-family: var(--body-font);
+  font-family: var(--body-font) !important;
   font-size: var(--normal-font-size);
 }
 
@@ -49,4 +49,8 @@ img,
 svg {
   max-width: 100%;
   height: auto;
+}
+
+mat-radio-button label {
+  font-family: var(--body-font) !important;
 }

@@ -14,6 +14,7 @@ import { AppRoutes } from '@app/utils/libraries/app-routes';
 import { map, Observable, shareReplay } from 'rxjs';
 import { SidebarComponent } from '../../components';
 import { IUserState } from '@app/shared/states/interfaces';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-layout',
@@ -26,7 +27,8 @@ import { IUserState } from '@app/shared/states/interfaces';
     MatIconModule,
     AsyncPipe,
     RouterOutlet,
-    SidebarComponent
+    SidebarComponent,
+    MatProgressBarModule
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'

@@ -17,6 +17,9 @@
     <mat-card>
       <mat-card-content>
         <form class="saving-form">
+          <!-- ================================================
+                              DESCRIPTION
+          ===================================================-->
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Descripcion</mat-label>
@@ -24,6 +27,9 @@
               <mat-icon matSuffix>description</mat-icon>
             </mat-form-field>
           </div>
+          <!-- ================================================
+                                VALUE
+          ===================================================-->
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Valor</mat-label>
@@ -33,6 +39,9 @@
               </mat-icon>
             </mat-form-field>
           </div>
+          <!-- ================================================
+                              DATEPICKER
+          ===================================================-->
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Choose a date</mat-label>
@@ -42,7 +51,30 @@
               <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
             </mat-form-field>
           </div>
+          <!-- ================================================
+                              OPTIONS
+          ===================================================-->
+          <div class="saving-form-field">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">+S/ Ingresos</mat-radio-button>
+              <mat-radio-button value="2">-S/ Gastos</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <!-- ================================================
+                              SUBMIT
+          ===================================================-->
+          <div class="saving-form-field">
+            <button mat-flat-button type="submit" color="primary">Registrar</button>
+          </div>
         </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="saving-table">
+    <mat-card>
+      <mat-card-content>
+        <app-table></app-table>
       </mat-card-content>
     </mat-card>
   </div>

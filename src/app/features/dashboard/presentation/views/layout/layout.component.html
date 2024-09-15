@@ -4,7 +4,7 @@
     <app-sidebar [user]="user"></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary" class="sidenav-toolbar">
+    <mat-toolbar color="accent" class="sidenav-toolbar">
       <div>
         @if (isHandset$ | async) {
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
@@ -19,8 +19,9 @@
         </mat-icon>
       </button>
     </mat-toolbar>
-    <!-- Add Content Here -->
-    <!-- <app-dashboard></app-dashboard> -->
+    @if (true) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
     <div class="sidenav-main">
       <router-outlet></router-outlet>
     </div>
