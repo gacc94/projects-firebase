@@ -1,5 +1,5 @@
-import { UserCredential } from "@angular/fire/auth";
+import { UserCredential, OAuthCredential } from '@angular/fire/auth';
 
 export interface ISignInGoogleUseCase {
-  execute: () => Promise<UserCredential | null>
+  execute: () => Promise<UserCredential | OAuthCredential | null>
 }

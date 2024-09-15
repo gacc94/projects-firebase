@@ -7,6 +7,7 @@ import { IStateUseCase } from "@features/auth/application/interfaces/state.inter
 import { ISignOutUseCase } from "../application/interfaces/sign-out.interface";
 import { IStateStorage } from "../states/interfaces/state-storage.interface";
 import { ITokenState, IUserState } from "../states/interfaces/";
+import { IErrorFirebaseState } from "../states/interfaces/error-custom.interface";
 
 export const STORAGE_TOKEN = new InjectionToken<StorageAdapter>('StorageServiceToken');
 export const AUTH_TOKEN = new InjectionToken<IAuthRepository>('AuthService');
@@ -21,3 +22,4 @@ export const STATE_AUTH_TOKEN = new InjectionToken<IStateUseCase>('StateUseCase'
 
 export const USER_STATE = new InjectionToken<IStateStorage<IUserState>>('StateStorage<IUserState>');
 export const TOKEN_STATE = new InjectionToken<IStateStorage<ITokenState>>('StateStorage<ITokenState>');
+export const ERROR_FIREBASE_STATE = new InjectionToken<IStateStorage<IErrorFirebaseState>>('StateStorage<IErrorFirebaseState>');

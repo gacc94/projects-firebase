@@ -12,5 +12,6 @@ export const environment = {
   storageKeys: {
     user: 'user',
     token: 'jwt',
+    erorrFirebase: 'error-firebase',
   }
 }

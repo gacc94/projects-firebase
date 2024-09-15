@@ -9,7 +9,9 @@
         <mat-label>Email</mat-label>
         <input matInput placeholder="Ingrese su email" type="email" formControlName="email">
         <mat-icon matSuffix fontIcon="person" />
-        <!-- <mat-error *ngIf="hasError('email')">{{ errorMessage('email') }}</mat-error> -->
+        @if (hasError('email')) {
+        <mat-error>{{errorMessage('email')}}</mat-error>
+        }
       </mat-form-field>
     </div>
     <div>
@@ -17,7 +19,9 @@
         <mat-label>Contraseña</mat-label>
         <input matInput placeholder="Ingrese su contraseña" type="password" formControlName="password">
         <mat-icon matSuffix fontIcon="key" />
-        <!-- <mat-error *ngIf="hasError('password')">{{ errorMessage('password') }}</mat-error> -->
+        @if (hasError('password')) {
+        <mat-error>{{errorMessage('password')}}</mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-forgot">

@@ -12,6 +12,7 @@ import { IStateStorage } from '@app/shared/states/interfaces/state-storage.inter
 import { SIGN_OUT_TOKEN, USER_STATE } from '@app/shared/tokens/shared.token';
 import { AppRoutes } from '@app/utils/libraries/app-routes';
 import { map, Observable, shareReplay } from 'rxjs';
+import { SidebarComponent } from '../../components';
 
 @Component({
   selector: 'app-layout',
@@ -23,7 +24,8 @@ import { map, Observable, shareReplay } from 'rxjs';
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    RouterOutlet
+    RouterOutlet,
+    SidebarComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'

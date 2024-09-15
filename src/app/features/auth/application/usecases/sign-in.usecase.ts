@@ -15,6 +15,6 @@ export class SignInUseCase implements ISignInUseCase {
 
   async execute(email: string, password: string): Promise<UserCredential | null> {
     const auth: AuthEntity = this._authFactory.create(email, password);
-    return await this._authRepository.signIn(auth.email, auth.password);
+    return await this._authRepository.signInWithEmailAndPassword(auth.email, auth.password);
   }
 }

@@ -6,14 +6,17 @@ import { AuthInfrastructure } from "../auth.infrastructure";
 import { Auth } from "@angular/fire/auth";
 import { AuthFactory } from "../../domain/factories/auth.factory";
 import { StateUseCase } from "../../application/usecases/state.usecase";
-import { USER_STATE, AUTH_TOKEN, SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN, TOKEN_STATE } from "@app/shared/tokens/shared.token";
+import { USER_STATE, AUTH_TOKEN, SIGN_IN_GOOGLE_TOKEN, SIGN_IN_TOKEN, STATE_AUTH_TOKEN, TOKEN_STATE, ERROR_FIREBASE_STATE } from "@app/shared/tokens/shared.token";
 import { ITokenState, IUserState, IStateStorage } from "@app/shared/states/interfaces";
+import { IErrorFirebaseState } from "@app/shared/states/interfaces/error-custom.interface";
 
 export const AUT_PROVIDERS: Array<Provider> = [
   {
     provide: AUTH_TOKEN,
-    useFactory: (auth: Auth, userState: IStateStorage<IUserState>, tokenState: IStateStorage<ITokenState>) => new AuthInfrastructure(auth, userState, tokenState),
-    deps: [Auth, USER_STATE, TOKEN_STATE]
+    useFactory:
+      (auth: Auth, userState: IStateStorage<IUserState>, tokenState: IStateStorage<ITokenState>, errorState: IStateStorage<IErrorFirebaseState>) =>
+        new AuthInfrastructure(auth, userState, tokenState, errorState),
+    deps: [Auth, USER_STATE, TOKEN_STATE, ERROR_FIREBASE_STATE]
   },
   {
     provide: SIGN_IN_TOKEN,
