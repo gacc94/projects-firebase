@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
 import { IAuthRepository } from '../domain/repositories/auth.repository';
-import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from '@angular/fire/auth';
+import { Auth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, User, UserCredential } from '@angular/fire/auth';
 import { ERROR_FIREBASE_STATE, TOKEN_STATE, USER_STATE } from '@app/shared/tokens/shared.token';
 import { IStateStorage } from '@app/shared/states/interfaces/state-storage.interface';
 import { UserCredentialMapper } from './mappers/user.mapper';
@@ -71,7 +71,7 @@ export class AuthInfrastructure implements IAuthRepository {
     }
   }
 
-  getState() {
+  getState(): Promise<User | null> {
     return new Promise((resolve) => {
       onAuthStateChanged(this._auth, (user) => {
         if (!user) resolve(null);

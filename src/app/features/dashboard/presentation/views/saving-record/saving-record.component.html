@@ -1,1 +1,49 @@
-<p>saving-record works!</p>
+<div class="saving-container">
+  <h2 class="saving-title">Registro de Ahorros</h2>
+  <div class="saving-cards">
+    @for (item of recordData; track $index) {
+    <mat-card>
+      <mat-card-header>
+        <h3 class="saving-card-title">{{item.title}} $</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 class="saving-card-content-title"><strong>$/. {{item.monto | currency:'PER':'code':'1.2-3'}}</strong></h2>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+
+  <div class="saving-form-content">
+    <mat-card>
+      <mat-card-content>
+        <form class="saving-form">
+          <div class="saving-form-field">
+            <mat-form-field [appearance]="'outline'">
+              <mat-label>Descripcion</mat-label>
+              <input matInput placeholder="Descripcion">
+              <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="saving-form-field">
+            <mat-form-field [appearance]="'outline'">
+              <mat-label>Valor</mat-label>
+              <input matInput placeholder="Valor">
+              <mat-icon matSuffix>
+                done_outline
+              </mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="saving-form-field">
+            <mat-form-field [appearance]="'outline'">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

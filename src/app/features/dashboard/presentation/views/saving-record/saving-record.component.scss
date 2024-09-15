@@ -1,0 +1,43 @@
+.saving {
+  &-title {
+    margin-bottom: 1.25rem;
+  }
+
+  &-card-title {
+    font-size: 1.25rem;
+  }
+
+  &-card-content-title {
+    font-size: 2rem;
+  }
+
+  &-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    mat-card-content {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &-form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+
+    &-field {
+      margin-top: 1rem;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+mat-card-header {
+  justify-content: center;
+}
