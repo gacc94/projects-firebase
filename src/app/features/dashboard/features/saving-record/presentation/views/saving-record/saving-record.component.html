@@ -1,29 +1,45 @@
 <div class="saving-container">
   <h2 class="saving-title">Registro de Ahorros</h2>
   <div class="saving-cards">
-    @for (item of recordData; track $index) {
+
     <mat-card>
       <mat-card-header>
-        <h3 class="saving-card-title">{{item.title}} $</h3>
+        <h3 class="saving-card-title">Ingresos $</h3>
       </mat-card-header>
       <mat-card-content>
-        <h2 class="saving-card-content-title"><strong>$/. {{item.monto | currency:'PER':'code':'1.2-3'}}</strong></h2>
+        <h2 class="saving-card-content-title"><strong>$/. {{income()}}</strong></h2>
       </mat-card-content>
     </mat-card>
-    }
+    <mat-card>
+      <mat-card-header>
+        <h3 class="saving-card-title">Gastos $</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 class="saving-card-content-title"><strong>$/. {{totalExpense()}}</strong>
+        </h2>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <h3 class="saving-card-title">Total $</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 class="saving-card-content-title"><strong>$/. {{total()}}</strong></h2>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <div class="saving-form-content">
     <mat-card>
       <mat-card-content>
-        <form class="saving-form">
+        <form class="saving-form" [formGroup]="form()!" (ngSubmit)="onSubmit()">
           <!-- ================================================
                               DESCRIPTION
           ===================================================-->
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Descripcion</mat-label>
-              <input matInput placeholder="Descripcion">
+              <input matInput placeholder="Descripcion" formControlName="description">
               <mat-icon matSuffix>description</mat-icon>
             </mat-form-field>
           </div>
@@ -33,10 +49,8 @@
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Valor</mat-label>
-              <input matInput placeholder="Valor">
-              <mat-icon matSuffix>
-                done_outline
-              </mat-icon>
+              <input matInput placeholder="Valor" formControlName="amount">
+              <mat-icon matSuffix fontIcon="attach_money"></mat-icon>
             </mat-form-field>
           </div>
           <!-- ================================================
@@ -45,17 +59,16 @@
           <div class="saving-form-field">
             <mat-form-field [appearance]="'outline'">
               <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-hint>MM/DD/YYYY</mat-hint>
+              <input matInput [matDatepicker]="picker" formControlName="date">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
           <!-- ================================================
                               OPTIONS
           ===================================================-->
           <div class="saving-form-field">
-            <mat-radio-group aria-label="Select an option">
+            <mat-radio-group aria-label="Select an option" formControlName="category">
               <mat-radio-button value="1">+S/ Ingresos</mat-radio-button>
               <mat-radio-button value="2">-S/ Gastos</mat-radio-button>
             </mat-radio-group>
@@ -72,10 +85,10 @@
   </div>
 
   <div class="saving-table">
-    <mat-card>
-      <mat-card-content>
-        <app-table></app-table>
-      </mat-card-content>
-    </mat-card>
+    <!-- <mat-card> -->
+    <!-- <mat-card-content> -->
+    <app-table [dataSource]="dataSource()"></app-table>
+    <!-- </mat-card-content> -->
+    <!-- </mat-card> -->
   </div>
 </div>

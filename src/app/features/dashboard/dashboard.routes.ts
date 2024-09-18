@@ -11,7 +11,7 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       {
         path: 'saving-record',
-        loadComponent: () => import('./presentation/views/saving-record/saving-record.component')
+        loadComponent: () => import('./features/saving-record/presentation/views/saving-record/saving-record.component')
       },
       {
         path: '**',

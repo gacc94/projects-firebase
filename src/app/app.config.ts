@@ -1,4 +1,4 @@
-import { ApplicationConfig, enableProdMode, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, enableProdMode, Provider, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,10 +10,12 @@ import { environment } from 'src/environments/environment.dev';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AUT_PROVIDERS } from './features/auth/infrastructure/providers/auth.provider';
 import { SHARED_PROVIDERS } from './shared/providers/shared.provider';
+import { SAVING_RECORD_PROVIDERS } from './features/dashboard/features/saving-record/infrastructure/providers/saving-record.provider';
 
-export const APP_CONFIG_PROVIDERS = [
+export const APP_CONFIG_PROVIDERS: Array<Provider> = [
   ...SHARED_PROVIDERS,
-  ...AUT_PROVIDERS
+  ...AUT_PROVIDERS,
+  ...SAVING_RECORD_PROVIDERS
 ]
 
 if (environment.production) {
