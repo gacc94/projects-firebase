@@ -10,12 +10,12 @@ export const routes: Routes = [
   {
     path: routeAuth,
     loadChildren: () => import('@auth/auth.routes'),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: routeDashboard,
     loadChildren: () => import('@dashboard/dashboard.routes'),
-    canActivate: [DashboardGuard],
+    // canActivate: [DashboardGuard],
   },
   {
     path: '**',

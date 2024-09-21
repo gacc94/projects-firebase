@@ -15,6 +15,9 @@ import { ICreateUseCase } from '../../../application/interfaces/create.interface
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { TableComponent } from '../../components/table/table.component';
 import { ISavingRecod } from '../../../domain/interfaces/saving-record.interface';
+import { merge, mergeMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmComponent } from '../../components/dialog-confirm/dialog-confirm.component';
 
 export interface IFormRecord {
   date: FormControl<any>;
@@ -39,6 +42,7 @@ export interface IFormRecord {
     MatButtonModule,
     TableComponent,
     ReactiveFormsModule,
+    DialogConfirmComponent,
   ],
   templateUrl: './saving-record.component.html',
   styleUrl: './saving-record.component.scss',
@@ -55,13 +59,11 @@ export default class SavingRecordComponent implements OnInit {
 
   constructor(
     private readonly _fb: FormBuilder,
-    @Inject(CREATE_SAVING_RECORD_TOKEN) private readonly _createUseCase: ICreateUseCase
+    private readonly _dialog: MatDialog,
+    @Inject(CREATE_SAVING_RECORD_TOKEN) private readonly _createUseCase: ICreateUseCase,
   ) {
     effect(() => {
       console.log(this.totalExpense());
-      // this.totalExpense.update((expense: number) => {
-      //   return expense;
-      // })
     })
   }
 
@@ -72,19 +74,17 @@ export default class SavingRecordComponent implements OnInit {
 
     this.form().controls['category'].valueChanges.subscribe({
       next: (value: string) => {
-        // if (this.)
+        console.log({ value });
+        const valueOption = Number(value);
+        const expenseValue = this.form().controls['amount'].value;
+        if (this.total() < expenseValue && value === '2') {
+          this._openDialog();
+        }
+        if (this.total() < expenseValue && value === '1') {
+          (this.form() as FormGroup)
+        }
       }
     });
-  }
-
-  private _initForm(): void {
-    this.form!.set(this._fb.group({
-      description: new FormControl('', [Validators.required]),
-      amount: new FormControl('', [Validators.required]),
-      // currency: [''],
-      date: new FormControl(new Date()),
-      category: new FormControl('1'),
-    }));
   }
 
   async onSubmit(): Promise<void> {
@@ -94,19 +94,22 @@ export default class SavingRecordComponent implements OnInit {
     const savingRecod = this._objDataTransformDate(formValue);
 
     if (formValue.category === '1') {
-      this.income.update((income: number): number => income + Number(formValue.amount))
+      this.income.update((income: number): number => income + Number(formValue.amount));
     }
+
     if (formValue.category === '2') {
-      this.totalExpense.update((expense: number) => {
-        return expense + Number(formValue.amount);
-      })
+      if (this.total() < formValue.amount) {
+        this._openDialog(formValue.amount);
+      } else {
+        this._updateTotalExpense(formValue.amount);
+      }
     }
 
     this.dataSource.update((value: Array<ISavingRecod>) => [...value, savingRecod])
   }
 
   isDisabledButton(): boolean {
-    return !this.form()!.valid! || this.total() < 0;
+    return !this.form().valid!;
   }
 
   private _convertirFechaConIntl(fecha: Date): string {
@@ -120,6 +123,36 @@ export default class SavingRecordComponent implements OnInit {
       category,
       description,
     }
+  }
+
+  private _initForm(): void {
+    this.form!.set(this._fb.group({
+      description: new FormControl('', [Validators.required]),
+      amount: new FormControl('', [Validators.required]),
+      date: new FormControl(new Date()),
+      category: new FormControl('1'),
+    }));
+  }
+
+  private _updateTotalExpense(amount: number = 0) {
+    this.totalExpense.update((expense: number) => expense + amount);
+  }
+
+  private _openDialog(amount?: number) {
+    const dialogRef = this._dialog.open(DialogConfirmComponent, {
+      data: {},
+      maxWidth: '350px',
+      disableClose: true,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result: boolean) => {
+        if (result) {
+          this._updateTotalExpense(amount);
+        }
+      }
+    })
   }
 
 }

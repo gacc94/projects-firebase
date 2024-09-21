@@ -32,7 +32,7 @@
   <div class="saving-form-content">
     <mat-card>
       <mat-card-content>
-        <form class="saving-form" [formGroup]="form()!" (ngSubmit)="onSubmit()">
+        <form class="saving-form" [formGroup]="form()" (ngSubmit)="onSubmit()">
           <!-- ================================================
                               DESCRIPTION
           ===================================================-->
@@ -85,10 +85,6 @@
   </div>
 
   <div class="saving-table">
-    <!-- <mat-card> -->
-    <!-- <mat-card-content> -->
     <app-table [dataSource]="dataSource()"></app-table>
-    <!-- </mat-card-content> -->
-    <!-- </mat-card> -->
   </div>
 </div>
